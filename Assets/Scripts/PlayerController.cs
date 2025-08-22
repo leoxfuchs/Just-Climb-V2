@@ -36,17 +36,21 @@ public class PlayerController : MonoBehaviour
         // Check if grounded
         CheckGrounded();
         
-        // Handle jumping - ALWAYS ALLOW JUMP FOR TESTING
+        // Handle jumping - only when grounded
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (climbingSystem.IsClimbing())
             {
                 Debug.Log("Can't jump while climbing!");
             }
-            else
+            else if (isGrounded)
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 Debug.Log($"JUMP! Force: {jumpForce}, Grounded: {isGrounded}");
+            }
+            else
+            {
+                Debug.Log("Can't jump - not grounded!");
             }
         }
         
